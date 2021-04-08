@@ -27,6 +27,37 @@ public class PlayBoard {
 
 
     }
+    public boolean isReachableFromTo(int fromX,int fromY,int toX, int toY){
+        if(fromX!=toX && fromY!=toY){
+            return false;
+        }
+        else if(fromY==toY){
+            if(toX>fromX){
+                int temp=toX;
+                toX=fromX;
+                fromX=temp;
+            }
+
+            for(int i=fromX;i<=toX;i++){
+                if(allSquares.get(i).get(toY).isWall()){
+                    return false;
+                }
+            }
+        }
+        else {
+            if(toY>fromY){
+                int temp=toY;
+                toY=fromY;
+                fromY=temp;
+            }
+            for(int i=fromY;i<=toY;i++){
+                if(allSquares.get(toX).get(i).isWall()){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
     private void genereateWay(int size){
         for (int i=0;i<size;i++){
             for (int j=0;j<size;j++){

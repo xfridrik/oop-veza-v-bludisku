@@ -5,14 +5,17 @@ import java.awt.*;
 
 public class MazeCanvas extends Canvas {
     PlayBoard board;
-    int posX;
-    int posY;
+    Point pos;
+    boolean clicked;
     Game game;
+    Point cur;
     public MazeCanvas(PlayBoard board, int startX, int startY, Game game) {
         this.board=board;
-        this.posX=startX;
-        this.posY=startY;
+        pos=new Point();
+        this.pos.setLocation(startX,startY);
         this.game=game;
+        clicked=false;
+        cur=new Point();
     }
 
     @Override
@@ -29,67 +32,89 @@ public class MazeCanvas extends Canvas {
                     g.setColor(Color.red);
                 }
                 else {
-                    g.setColor(Color.white);
+                    if(clicked&&cur.x==j&&cur.y==i){
+                        if(board.isReachableFromTo(pos.x, pos.y, j,i)){
+                            g.setColor(Color.CYAN);
+                        }
+                        else g.setColor(Color.white);
+                    }
+                    else{
+                        g.setColor(Color.white);
+                    }
                 }
                 g.fillRect(i * 30, j*30, 30, 30);
 
             }
         }
         g.setColor(Color.PINK);
-        g.fillOval(posY * 30 + 5, posX*30+5, 20, 20);
-        if(board.getAllSquares().get(posX).get(posY).isFin()){
+        g.fillOval(pos.y * 30 + 5, pos.x*30+5, 20, 20);
+        if(board.getAllSquares().get(pos.x).get(pos.y).isFin()){
             System.out.println("VYHRA");
             game.win();
             nextGame();
         }
-        /*for (int j = 0; j < 15; j++) {
-            for (int i = 0; i < 15; i++) {
-                if ((i+j) % 2 == 0) {
-                    g.setColor(Color.darkGray);
-                    g.fillRect(i * 30 + 18, j*30, 30, 30);
-                } else {
-                    g.setColor(Color.white);
-                    g.fillRect(i * 30 + 18, j*30, 30, 30);
-                }
-            }
-        }*/
+    }
+    public void click(){
+        System.out.println(pos);
+        System.out.println(cur);
+        if(clicked && board.isReachableFromTo(pos.x, pos.y, cur.x,cur.y)){
+            pos.x=cur.x;
+            pos.y=cur.y;
+            clicked=false;
+            this.repaint();
+        }
+        clicked=true;
+    }
+    public void unclick(){
+        clicked=false;
+    }
+    public void setCurPos(Point position){
+        if (clicked){
+            cur.x=position.x;
+            cur.y=position.y;
+            repaint();
+            System.out.println("NEW POLE");
+        }
     }
 
     public void reset(){
         this.board=new PlayBoard();
-        posX=1;
-        posY=1;
+        pos.x=1;
+        pos.y=1;
         game.resetWin();
         this.repaint();
     }
     public void nextGame(){
         this.board=new PlayBoard();
-        posX=1;
-        posY=1;
+        pos.x=1;
+        pos.y=1;
         this.repaint();
     }
     public void move(Move mov){
         switch (mov){
-            case UP: if (!board.getAllSquares().get(posX-1).get(posY).isWall()){
-                posX=posX-1;
+            case UP: if (!board.getAllSquares().get(pos.x-1).get(pos.y).isWall()){
+                pos.x=pos.x-1;
             }
                 break;
 
-            case DOWN: if (!board.getAllSquares().get(posX+1).get(posY).isWall()){
-                posX=posX+1;
+            case DOWN: if (!board.getAllSquares().get(pos.x+1).get(pos.y).isWall()){
+                pos.x=pos.x+1;
             }
                 break;
 
-            case LEFT: if (!board.getAllSquares().get(posX).get(posY-1).isWall()){
-                posY=posY-1;
+            case LEFT: if (!board.getAllSquares().get(pos.x).get(pos.y-1).isWall()){
+                pos.y=pos.y-1;
             }
                 break;
 
-            case RIGHT: if (!board.getAllSquares().get(posX).get(posY+1).isWall()){
-                posY=posY+1;
+            case RIGHT: if (!board.getAllSquares().get(pos.x).get(pos.y+1).isWall()){
+                pos.y=pos.y+1;
             }
                 break;
         }
         this.repaint();
+    }
+    public Point getPosition(){
+        return pos;
     }
 }
