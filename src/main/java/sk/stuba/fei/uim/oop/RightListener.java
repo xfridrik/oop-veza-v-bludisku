@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RightListener implements ActionListener {
-    MyCanvas can;
-    public RightListener(MyCanvas can) {
+    MazeCanvas can;
+    public RightListener(MazeCanvas can) {
         this.can=can;
     }
     @Override

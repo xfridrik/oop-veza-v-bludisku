@@ -3,12 +3,12 @@ package sk.stuba.fei.uim.oop;
 import java.awt.*;
 
 
-public class MyCanvas extends Canvas {
+public class MazeCanvas extends Canvas {
     PlayBoard board;
     int posX;
     int posY;
     Game game;
-    public MyCanvas(PlayBoard board,int startX,int startY,Game game) {
+    public MazeCanvas(PlayBoard board, int startX, int startY, Game game) {
         this.board=board;
         this.posX=startX;
         this.posY=startY;
@@ -31,12 +31,12 @@ public class MyCanvas extends Canvas {
                 else {
                     g.setColor(Color.white);
                 }
-                g.fillRect(i * 30 + 18, j*30, 30, 30);
+                g.fillRect(i * 30, j*30, 30, 30);
 
             }
         }
-        g.setColor(Color.CYAN);
-        g.fillRect(posY * 30 + 18, posX*30, 30, 30);
+        g.setColor(Color.PINK);
+        g.fillOval(posY * 30 + 5, posX*30+5, 20, 20);
         if(board.getAllSquares().get(posX).get(posY).isFin()){
             System.out.println("VYHRA");
             game.win();
