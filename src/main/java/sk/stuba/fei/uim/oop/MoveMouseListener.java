@@ -24,8 +24,7 @@ public class MoveMouseListener extends MouseAdapter {
             System.out.println("SUC");
         }
         else if(clicked){
-            canv.click();
-            clicked=false;
+            clicked=canv.click();
         }
     }
 

@@ -32,7 +32,7 @@ public class PlayBoard {
             return false;
         }
         else if(fromY==toY){
-            if(toX>fromX){
+            if(toX<fromX){
                 int temp=toX;
                 toX=fromX;
                 fromX=temp;
@@ -40,12 +40,13 @@ public class PlayBoard {
 
             for(int i=fromX;i<=toX;i++){
                 if(allSquares.get(i).get(toY).isWall()){
+                    System.out.println("F");
                     return false;
                 }
             }
         }
         else {
-            if(toY>fromY){
+            if(toY<fromY){
                 int temp=toY;
                 toY=fromY;
                 fromY=temp;

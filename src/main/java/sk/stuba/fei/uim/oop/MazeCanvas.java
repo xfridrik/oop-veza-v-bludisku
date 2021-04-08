@@ -54,22 +54,22 @@ public class MazeCanvas extends Canvas {
             nextGame();
         }
     }
-    public void click(){
+    public boolean click(){
         System.out.println(pos);
         System.out.println(cur);
-        if(clicked && board.isReachableFromTo(pos.x, pos.y, cur.x,cur.y)){
+        if(clicked && !board.allSquares.get(cur.x).get(cur.y).isWall() && board.isReachableFromTo(pos.x, pos.y, cur.x,cur.y)){
             pos.x=cur.x;
             pos.y=cur.y;
             clicked=false;
             this.repaint();
+            return false;
         }
         else{
             clicked=true;
+            return true;
         }
     }
-    public void unclick(){
-        clicked=false;
-    }
+
     public void setCurPos(Point position){
         if (clicked){
             cur.x=position.x;
