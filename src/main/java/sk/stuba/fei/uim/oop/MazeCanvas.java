@@ -63,7 +63,9 @@ public class MazeCanvas extends Canvas {
             clicked=false;
             this.repaint();
         }
-        clicked=true;
+        else{
+            clicked=true;
+        }
     }
     public void unclick(){
         clicked=false;
