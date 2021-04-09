@@ -17,6 +17,7 @@ public class Game {
         winLabel.setForeground(Color.CYAN);
 
         var window=new GameWindow(canv,winLabel);
+        window.repaint();
 
     }
     public void win(){

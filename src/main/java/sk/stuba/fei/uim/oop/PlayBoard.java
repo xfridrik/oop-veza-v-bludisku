@@ -40,7 +40,6 @@ public class PlayBoard {
 
             for(int i=fromX;i<=toX;i++){
                 if(allSquares.get(i).get(toY).isWall()){
-                    System.out.println("F");
                     return false;
                 }
             }
@@ -59,7 +58,7 @@ public class PlayBoard {
         }
         return true;
     }
-    private void genereateWay(int size){
+    private void generateWay(int size){
         for (int i=0;i<size;i++){
             for (int j=0;j<size;j++){
                 var curSquare=allSquares.get(i).get(j);
@@ -99,13 +98,13 @@ public class PlayBoard {
                 allSquares.get(line).get(col).setNeigh(neighs);
             }
         }
-        genereateWay(size);
+        generateWay(size);
         addWall();
-        for(ArrayList<PlaySquare> sql:allSquares){
+        /*for(ArrayList<PlaySquare> sql:allSquares){
             System.out.println();
             for(PlaySquare sq:sql) {
                 System.out.print(sq.getS());
             }
-        }
+        }*/
     }
 }

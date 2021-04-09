@@ -32,14 +32,11 @@ public class MazeCanvas extends Canvas {
                     g.setColor(Color.red);
                 }
                 else {
-                    if(clicked&&cur.x==j&&cur.y==i){
-                        if(board.isReachableFromTo(pos.x, pos.y, j,i)){
-                            g.setColor(Color.CYAN);
-                        }
-                        else g.setColor(Color.white);
-                    }
-                    else{
-                        g.setColor(Color.white);
+                    g.setColor(Color.white);
+                }
+                if(clicked&&cur.x==j&&cur.y==i) {
+                    if (board.isReachableFromTo(pos.x, pos.y, j, i)) {
+                        g.setColor(Color.CYAN);
                     }
                 }
                 g.fillRect(i * 30, j*30, 30, 30);
@@ -74,8 +71,9 @@ public class MazeCanvas extends Canvas {
         if (clicked){
             cur.x=position.x;
             cur.y=position.y;
-            repaint();
-            System.out.println("NEW POLE");
+            if(board.isReachableFromTo(pos.x, pos.y, cur.x,cur.y)){
+                repaint();
+            }
         }
     }
 
