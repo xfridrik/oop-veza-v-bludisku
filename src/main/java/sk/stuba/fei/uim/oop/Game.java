@@ -16,7 +16,7 @@ public class Game {
         winLabel = new JLabel("Pocet vyhier 0",SwingConstants.CENTER);
         winLabel.setForeground(Color.CYAN);
 
-        var window=new GameWindow(canv,winLabel);
+        window=new GameWindow(canv,winLabel);
         window.repaint();
 
     }

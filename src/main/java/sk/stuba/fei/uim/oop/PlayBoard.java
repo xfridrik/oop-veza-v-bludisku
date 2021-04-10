@@ -64,10 +64,14 @@ public class PlayBoard {
                 var curSquare=allSquares.get(i).get(j);
                 if (!curSquare.wasVisited()){
                     curSquare.visit();
+                    curSquare.connectWay(); //spoji sa s nejakou predoslou cestou
                     var end=curSquare.randomNeigh();
                     if(i==0 && j==0){
                         end.setFin();
                     }
+                    System.out.print(i+",");
+                    System.out.println(j);
+                    System.out.println(curSquare.listOfNeighs);
                 }
             }
         }

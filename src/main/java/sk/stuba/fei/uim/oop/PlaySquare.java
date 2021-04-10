@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class PlaySquare {
     private boolean visited;
     private boolean wall;
-    private ArrayList<PlaySquare> listOfNeighs;
+     ArrayList<PlaySquare> listOfNeighs;
     private boolean fin;
     //int x;
     //int y;
@@ -24,6 +24,7 @@ public class PlaySquare {
         this.visit();
         wall=false;
         int ind=0;
+        var lastNeighs = new ArrayList<>(listOfNeighs);
         //Vyberie random not visited suseda
         while(listOfNeighs.size()!=0){
             ind =(int)(Math.random()*listOfNeighs.size());
@@ -38,10 +39,17 @@ public class PlaySquare {
             PlaySquare neigh=listOfNeighs.get(ind);
             for(var n:listOfNeighs){
                 n.visit();
-               neigh.remove(this);
+               //neigh.remove(this);
             }
+            this.listOfNeighs=lastNeighs;
+            this.listOfNeighs.remove(neigh); //vymaže suseda cez ktoreho isiel
             return neigh.randomNeigh();
         }
+        this.listOfNeighs=lastNeighs;
+       /* for(var n:listOfNeighs){
+            n.unVisit();
+            break;
+        }*/
         return this;
     }
     public boolean wasVisited(){
@@ -50,8 +58,36 @@ public class PlaySquare {
     public void remove(PlaySquare sq){
         listOfNeighs.remove(sq);
     }
-    public int getS(){
-        return listOfNeighs.size();
+    public boolean connectWay(){ //ked nejaky susedov sused je cesta spoji ich
+        for(var n:listOfNeighs){
+            int ways=0;
+            //n má práve jedneho suseda ktorý je way
+            for(var nn:n.listOfNeighs){
+                if(!nn.isWall()){
+                    ways++;
+                }
+            }
+            if(ways==1){
+                n.setWay();
+                return true;
+            }
+        }
+        return false;
+    }
+    public void connectWay1(){ //ked nejaky susedov sused je cesta spoji ich
+        boolean done=false;
+        for(var n:listOfNeighs){
+            for(var nn:n.listOfNeighs){
+                if (!nn.isWall()){
+                    n.setWay();
+                    done=true;
+                    break;
+                }
+            }
+            if (done){
+                break;
+            }
+        }
     }
     public boolean isWall(){
         return wall;
@@ -59,11 +95,20 @@ public class PlaySquare {
     public void visit(){
         this.visited=true;
     }
+    public void unVisit(){
+        this.visited=false;
+    }
     public void setFin(){
         this.fin=true;
     }
     public boolean isFin(){
         return fin;
+    }
+    public void setWay(){
+        wall=false;
+        for(var neigh:listOfNeighs){
+            neigh.visit();
+        }
     }
 
 }

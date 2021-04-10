@@ -21,6 +21,7 @@ public class MoveMouseListener extends MouseAdapter {
         if(y==canv.getPosition().getX() && x==canv.getPosition().getY()){
             canv.click();
             clicked=true;
+            canv.repaint();
             System.out.println("SUC");
         }
         else if(clicked){

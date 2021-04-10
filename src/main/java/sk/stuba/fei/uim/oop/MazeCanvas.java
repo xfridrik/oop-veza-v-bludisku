@@ -43,7 +43,12 @@ public class MazeCanvas extends Canvas {
 
             }
         }
-        g.setColor(Color.PINK);
+        if (clicked){
+            g.setColor(Color.MAGENTA);
+        }
+        else{
+            g.setColor(Color.PINK);
+        }
         g.fillOval(pos.y * 30 + 5, pos.x*30+5, 20, 20);
         if(board.getAllSquares().get(pos.x).get(pos.y).isFin()){
             System.out.println("VYHRA");
@@ -63,6 +68,7 @@ public class MazeCanvas extends Canvas {
         }
         else{
             clicked=true;
+            //repaint();
             return true;
         }
     }
