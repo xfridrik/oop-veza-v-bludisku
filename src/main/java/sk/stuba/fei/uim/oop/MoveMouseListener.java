@@ -13,6 +13,7 @@ public class MoveMouseListener extends MouseAdapter {
         this.canv=canv;
     }
 
+    //ked sa klikne na vezu nastavi sa clicked a zavola funkcia v canvas
     @Override
     public void mouseClicked(MouseEvent e) {
         System.out.println("click");

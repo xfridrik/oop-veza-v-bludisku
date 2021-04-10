@@ -18,6 +18,7 @@ public class MazeCanvas extends Canvas {
         cur=new Point();
     }
 
+    //Vykresli vzdy vsetky stvorceky a nastavuje farby podla premennych
     @Override
     public void paint(Graphics g) {
         for (int j = 0; j < board.allSquares.size(); j++) {
@@ -59,6 +60,7 @@ public class MazeCanvas extends Canvas {
     public boolean click(){
         System.out.println(pos);
         System.out.println(cur);
+        //druhe kliknutie nastavi poziciu ak splna podmienky
         if(clicked && !board.allSquares.get(cur.x).get(cur.y).isWall() && board.isReachableFromTo(pos.x, pos.y, cur.x,cur.y)){
             pos.x=cur.x;
             pos.y=cur.y;
@@ -66,6 +68,7 @@ public class MazeCanvas extends Canvas {
             this.repaint();
             return false;
         }
+        //prve kliknutie alebo kliknutie mimo povolene stvorce
         else{
             clicked=true;
             //repaint();
@@ -73,6 +76,7 @@ public class MazeCanvas extends Canvas {
         }
     }
 
+    //nastavi poziciu kurzora a ak sa da nan prejst zvyrazni ho
     public void setCurPos(Point position){
         if (clicked){
             cur.x=position.x;
@@ -80,6 +84,7 @@ public class MazeCanvas extends Canvas {
             if(board.isReachableFromTo(pos.x, pos.y, cur.x,cur.y)){
                 repaint();
             }
+            repaint(); //TOTO ABY NEBLIKALO
         }
     }
 

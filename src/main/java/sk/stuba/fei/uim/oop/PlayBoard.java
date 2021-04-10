@@ -13,6 +13,7 @@ public class PlayBoard {
         return allSquares;
     }
 
+    //prida vonkajsiu stenu
     private void addWall(){
         ArrayList<PlaySquare> wallLine=new ArrayList<>();
         for (ArrayList<PlaySquare> sqLine : allSquares) {
@@ -27,6 +28,7 @@ public class PlayBoard {
 
 
     }
+    //zisti ci sa da prejst na dane policko bez narazenia na stenu
     public boolean isReachableFromTo(int fromX,int fromY,int toX, int toY){
         if(fromX!=toX && fromY!=toY){
             return false;
@@ -58,6 +60,7 @@ public class PlayBoard {
         }
         return true;
     }
+    //vygeneruje cestu pomocou rekurzivneho hladania nahodnych susedov
     private void generateWay(int size){
         for (int i=0;i<size;i++){
             for (int j=0;j<size;j++){
@@ -69,14 +72,12 @@ public class PlayBoard {
                     if(i==0 && j==0){
                         end.setFin();
                     }
-                    System.out.print(i+",");
-                    System.out.println(j);
-                    System.out.println(curSquare.listOfNeighs);
                 }
             }
         }
     }
 
+    //nastavi stvorceky bez vonkajsej steny a priradi im susedov
     private void squareInit(int size){
         for(int i=0;i<size;i++){
             allSquares.add(new ArrayList<>());

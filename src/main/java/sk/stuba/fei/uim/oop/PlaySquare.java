@@ -5,10 +5,8 @@ import java.util.ArrayList;
 public class PlaySquare {
     private boolean visited;
     private boolean wall;
-     ArrayList<PlaySquare> listOfNeighs;
+    private ArrayList<PlaySquare> listOfNeighs;
     private boolean fin;
-    //int x;
-    //int y;
 
     public PlaySquare() {
         listOfNeighs=new ArrayList<>();
@@ -35,6 +33,7 @@ public class PlaySquare {
                 break;
             }
         }
+        //ak ma takeho suseda oznaci vsetkych za visited a zavola sa rekurzia na nahodne zvoleneho
         if(listOfNeighs.size()!=0){
             PlaySquare neigh=listOfNeighs.get(ind);
             for(var n:listOfNeighs){
@@ -46,22 +45,15 @@ public class PlaySquare {
             return neigh.randomNeigh();
         }
         this.listOfNeighs=lastNeighs;
-       /* for(var n:listOfNeighs){
-            n.unVisit();
-            break;
-        }*/
         return this;
     }
     public boolean wasVisited(){
         return visited;
     }
-    public void remove(PlaySquare sq){
-        listOfNeighs.remove(sq);
-    }
-    public boolean connectWay(){ //ked nejaky susedov sused je cesta spoji ich
+
+    public boolean connectWay(){ //ked nejaky sused má práve jedneho suseda ktorý je way spoji dve cesty
         for(var n:listOfNeighs){
             int ways=0;
-            //n má práve jedneho suseda ktorý je way
             for(var nn:n.listOfNeighs){
                 if(!nn.isWall()){
                     ways++;

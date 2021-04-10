@@ -5,7 +5,6 @@ import java.awt.*;
 
 public class GameWindow extends JFrame {
     MazeCanvas canv;
-    JLabel winLabel;
     int wins;
     public GameWindow(MazeCanvas canv,JLabel winLabel) throws HeadlessException {
         this.canv = canv;
