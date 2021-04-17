@@ -17,7 +17,6 @@ public class MoveKeyListener implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        //System.out.println(e.getKeyChar());
         switch (e.getKeyCode()){
             case KeyEvent.VK_UP:
                 System.out.println("UP");

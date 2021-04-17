@@ -1,9 +1,10 @@
 package sk.stuba.fei.uim.oop;
 
+import javax.swing.*;
 import java.awt.*;
 
 
-public class MazeCanvas extends Canvas {
+public class MazeCanvas extends JPanel {
     PlayBoard board;
     Point pos;
     boolean clicked;
@@ -21,6 +22,7 @@ public class MazeCanvas extends Canvas {
     //Vykresli vzdy vsetky stvorceky a nastavuje farby podla premennych
     @Override
     public void paint(Graphics g) {
+        super.paint(g);
         for (int j = 0; j < board.allSquares.size(); j++) {
             for (int i = 0; i < board.allSquares.size(); i++) {
                 if (board.getAllSquares().get(j).get(i).isWall()) {
@@ -84,7 +86,7 @@ public class MazeCanvas extends Canvas {
             if(board.isReachableFromTo(pos.x, pos.y, cur.x,cur.y)){
                 repaint();
             }
-            repaint(); //TOTO ABY NEBLIKALO
+            repaint(); //TOTO PREC ABY NEBLIKALO
         }
     }
 

@@ -1,6 +1,8 @@
 package sk.stuba.fei.uim.oop;
 
+import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PlayBoard {
     ArrayList<ArrayList<PlaySquare>> allSquares;
@@ -60,24 +62,50 @@ public class PlayBoard {
         }
         return true;
     }
-    //vygeneruje cestu pomocou rekurzivneho hladania nahodnych susedov
-    private void generateWay(int size){
-        for (int i=0;i<size;i++){
-            for (int j=0;j<size;j++){
-                var curSquare=allSquares.get(i).get(j);
-                if (!curSquare.wasVisited()){
-                    curSquare.visit();
-                    curSquare.connectWay(); //spoji sa s nejakou predoslou cestou
-                    var end=curSquare.randomNeigh();
-                    if(i==0 && j==0){
-                        end.setFin();
-                    }
+    private void genFin(int size){
+        for (int line=size-1;line>0;line--){
+            for (int col=size-1;col>0;col--){
+                if(!allSquares.get(line).get(col).isWall()){
+                    allSquares.get(line).get(col).setFin();
+                    return;
                 }
             }
         }
     }
 
-    //nastavi stvorceky bez vonkajsej steny a priradi im susedov
+    private void genWay(int size, int line, int col){
+        ArrayList<Move> moves= new ArrayList<>();
+        moves.add(Move.UP);
+        moves.add(Move.DOWN);
+        moves.add(Move.LEFT);
+        moves.add(Move.RIGHT);
+        Collections.shuffle(moves);
+        for (int i=0;i<4;i++) {
+            if (line > 1 && moves.get(0) == Move.UP && allSquares.get(line - 2).get(col).isWall()) { //UP
+                allSquares.get(line - 1).get(col).setWay();
+                allSquares.get(line - 2).get(col).setWay();
+                genWay(size, line - 2, col);
+            }
+            else if (line < allSquares.size() - 2 && moves.get(0) == Move.DOWN && allSquares.get(line + 2).get(col).isWall()) { //DOWN
+                allSquares.get(line + 1).get(col).setWay();
+                allSquares.get(line + 2).get(col).setWay();
+                genWay(size, line + 2, col);
+            }
+            else if (col > 1 && moves.get(0) == Move.LEFT && allSquares.get(line).get(col - 2).isWall()) { //LEFT
+                allSquares.get(line).get(col - 1).setWay();
+                allSquares.get(line).get(col - 2).setWay();
+                genWay(size, line, col - 2);
+            }
+            else if (col < allSquares.size() - 2 && moves.get(0) == Move.RIGHT && allSquares.get(line).get(col + 2).isWall()) { //RIGHT
+                allSquares.get(line).get(col + 1).setWay();
+                allSquares.get(line).get(col + 2).setWay();
+                genWay(size, line, col + 2);
+            }
+            moves.remove(0);
+        }
+    }
+
+    //nastavi stvorceky bez vonkajsej steny
     private void squareInit(int size){
         for(int i=0;i<size;i++){
             allSquares.add(new ArrayList<>());
@@ -85,31 +113,8 @@ public class PlayBoard {
                 allSquares.get(i).add(new PlaySquare());
             }
         }
-        for(int line=0;line<allSquares.size();line++){
-            for(int col = 0; col <allSquares.size(); col++){
-                ArrayList<PlaySquare> neighs=new ArrayList<>();
-                if (line>0){ //UP
-                    neighs.add(allSquares.get(line-1).get(col));
-                }
-                if (line<allSquares.size()-1){ //DOWN
-                    neighs.add(allSquares.get(line+1).get(col));
-                }
-                if (col >0){ //LEFT
-                    neighs.add(allSquares.get(line).get(col -1));
-                }
-                if (col <allSquares.size()-1){ //RIGHT
-                    neighs.add(allSquares.get(line).get(col +1));
-                }
-                allSquares.get(line).get(col).setNeigh(neighs);
-            }
-        }
-        generateWay(size);
+        genWay(size,0,0);
+        genFin(size);
         addWall();
-        /*for(ArrayList<PlaySquare> sql:allSquares){
-            System.out.println();
-            for(PlaySquare sq:sql) {
-                System.out.print(sq.getS());
-            }
-        }*/
     }
 }
