@@ -34,16 +34,11 @@ public class MoveMouseListener extends MouseAdapter {
     public void mouseMoved(MouseEvent e) {
         int xc=e.getX()/30;
         int yc=e.getY()/30;
-        //PREKRESLI SA LEN KED SA ZMENIL CELY STVORCEK - AVOID BLIKANIE
+        //STACI SA PREKRESLIT LEN KED SA ZMENIL CELY STVORCEK
         if(xp!=xc || yp!=yc){
             xp=xc;
             yp=yc;
             canv.setCurPos(new Point(yc,xc));
-
-            /*System.out.println("pred"+xp);
-            System.out.println("pred"+yp);
-            System.out.println("po"+xc);
-            System.out.println("po"+yc);*/
         }
 
     }

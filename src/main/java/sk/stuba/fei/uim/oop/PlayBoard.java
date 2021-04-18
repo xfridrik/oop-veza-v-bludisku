@@ -1,7 +1,6 @@
 package sk.stuba.fei.uim.oop;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class PlayBoard {
     ArrayList<ArrayList<PlaySquare>> allSquares;
@@ -20,11 +19,11 @@ public class PlayBoard {
     private void addWall(){
         ArrayList<PlaySquare> wallLine=new ArrayList<>();
         for (ArrayList<PlaySquare> sqLine : allSquares) {
-            sqLine.add(0, new PlaySquare());
-            sqLine.add(new PlaySquare());
+            sqLine.add(0, new PlaySquare(allSquares.size(), -1,-1,allSquares));
+            sqLine.add(new PlaySquare(allSquares.size(), -1,-1,allSquares));
         }
         for(int i=0;i<allSquares.size()+2;i++){
-            wallLine.add(new PlaySquare());
+            wallLine.add(new PlaySquare(allSquares.size(), -1,-1,allSquares));
         }
         allSquares.add(wallLine);
         allSquares.add(0,wallLine);
@@ -63,6 +62,7 @@ public class PlayBoard {
         }
         return true;
     }
+    //nastavi ako ciel policko najblizsie pravemu dolnemu rohu
     private void genFin(int size){
         for (int line=size-1;line>0;line--){
             for (int col=size-1;col>0;col--){
@@ -74,51 +74,17 @@ public class PlayBoard {
         }
     }
 
-    private void genWay(int line, int col){
-        ArrayList<Move> moves= new ArrayList<>();
-        moves.add(Move.UP);
-        moves.add(Move.DOWN);
-        moves.add(Move.LEFT);
-        moves.add(Move.RIGHT);
-        Collections.shuffle(moves);
-        for (int i=0;i<4;i++) {
-            if (line > 1 && moves.get(0) == Move.UP && allSquares.get(line - 2).get(col).isWall()) { //UP
-                allSquares.get(line - 1).get(col).setWay();
-                allSquares.get(line - 2).get(col).setWay();
-                genWay( line - 2, col);
-            }
-            else if (line < allSquares.size() - 2 && moves.get(0) == Move.DOWN && allSquares.get(line + 2).get(col).isWall()) { //DOWN
-                allSquares.get(line + 1).get(col).setWay();
-                allSquares.get(line + 2).get(col).setWay();
-                genWay( line + 2, col);
-            }
-            else if (col > 1 && moves.get(0) == Move.LEFT && allSquares.get(line).get(col - 2).isWall()) { //LEFT
-                allSquares.get(line).get(col - 1).setWay();
-                allSquares.get(line).get(col - 2).setWay();
-                genWay( line, col - 2);
-            }
-            else if (col < allSquares.size() - 2 && moves.get(0) == Move.RIGHT && allSquares.get(line).get(col + 2).isWall()) { //RIGHT
-                allSquares.get(line).get(col + 1).setWay();
-                allSquares.get(line).get(col + 2).setWay();
-                genWay( line, col + 2);
-            }
-            moves.remove(0);
-        }
-    }
-
-
-    //nastavi stvorceky bez vonkajsej steny
+    //nastavi stvorceky bez vonkajsej steny a vytvori v nich cestu
     private void squareInit(int size){
         for(int i=0;i<size;i++){
             allSquares.add(new ArrayList<>());
             for(int j=0;j<size;j++){
-                allSquares.get(i).add(new PlaySquare());
+                allSquares.get(i).add(new PlaySquare(size,i,j,allSquares));
             }
         }
 
-        allSquares.get(0).get(0).setWay();
-        genWay(0,0);
-
+        //zacne "kopat" cestu od policka 0,0
+        allSquares.get(0).get(0).moveTo();
 
         genFin(size);
         addWall();

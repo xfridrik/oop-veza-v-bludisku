@@ -84,9 +84,9 @@ public class MazeCanvas extends JPanel {
             cur.x=position.x;
             cur.y=position.y;
             if(board.isReachableFromTo(pos.x, pos.y, cur.x,cur.y)){
-                repaint();
+               // repaint();
             }
-            repaint(); //TOTO PREC ABY NEBLIKALO
+            repaint();
         }
     }
 
