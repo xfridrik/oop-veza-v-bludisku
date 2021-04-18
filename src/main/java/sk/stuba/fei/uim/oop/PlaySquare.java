@@ -7,10 +7,10 @@ import java.util.Collections;
 public class PlaySquare {
     private boolean wall;
     private boolean fin;
-    private Point position;
+    private final Point position;
     private ArrayList<Move> moves;
-    private int mazeSize;
-    private ArrayList<ArrayList<PlaySquare>> all;
+    private final int mazeSize;
+    private final ArrayList<ArrayList<PlaySquare>> all;
     private int numOfMoves;
 
     public PlaySquare(int size,int line,int col,ArrayList<ArrayList<PlaySquare>>all) {
@@ -21,9 +21,7 @@ public class PlaySquare {
         this.mazeSize=size;
         moveInit();
     }
-    public ArrayList<Move> getMoves(){
-        return this.moves;
-    }
+
     //pohybuje sa vzdy na parne suradnice (o 2 policka)
     public void moveTo() {
         this.setWay();

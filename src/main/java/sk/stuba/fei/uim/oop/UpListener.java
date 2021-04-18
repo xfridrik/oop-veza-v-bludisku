@@ -12,6 +12,6 @@ public class UpListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("UP");
-        can.move(Move.UP);
+        can.moved(Move.UP);
     }
 }

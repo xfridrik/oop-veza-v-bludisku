@@ -11,6 +11,6 @@ public class DownListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("DOWN");
-        can.move(Move.DOWN);
+        can.moved(Move.DOWN);
     }
 }

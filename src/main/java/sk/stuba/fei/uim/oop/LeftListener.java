@@ -11,6 +11,6 @@ public class LeftListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("LEFT");
-        can.move(Move.LEFT);
+        can.moved(Move.LEFT);
     }
 }

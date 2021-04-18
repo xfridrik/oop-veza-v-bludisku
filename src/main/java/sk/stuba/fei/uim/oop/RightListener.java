@@ -11,6 +11,6 @@ public class RightListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("RIGHT");
-        can.move(Move.RIGHT);
+        can.moved(Move.RIGHT);
     }
 }

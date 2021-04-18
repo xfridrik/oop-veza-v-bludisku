@@ -19,19 +19,19 @@ public class MoveKeyListener implements KeyListener {
         switch (e.getKeyCode()){
             case KeyEvent.VK_UP:
                 System.out.println("UP");
-                canv.move(Move.UP);
+                canv.moved(Move.UP);
                 break;
             case KeyEvent.VK_DOWN:
                 System.out.println("DOWN");
-                canv.move(Move.DOWN);
+                canv.moved(Move.DOWN);
                 break;
             case KeyEvent.VK_LEFT:
                 System.out.println("LEFT");
-                canv.move(Move.LEFT);
+                canv.moved(Move.LEFT);
                 break;
             case KeyEvent.VK_RIGHT:
                 System.out.println("RIGHT");
-                canv.move(Move.RIGHT);
+                canv.moved(Move.RIGHT);
                 break;
             case KeyEvent.VK_R:
                 System.out.println("RESET");

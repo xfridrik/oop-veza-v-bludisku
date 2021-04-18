@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class PlayBoard {
     ArrayList<ArrayList<PlaySquare>> allSquares;
-    PlaySquare[] arr;
 
     public PlayBoard() {
         allSquares=new ArrayList<>();
@@ -85,7 +84,6 @@ public class PlayBoard {
 
         //zacne "kopat" cestu od policka 0,0
         allSquares.get(0).get(0).moveTo();
-
         genFin(size);
         addWall();
     }

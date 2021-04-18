@@ -6,17 +6,18 @@ import java.awt.*;
 
 public class MazeCanvas extends JPanel {
     PlayBoard board;
-    Point pos;
-    boolean clicked;
+    Point pos; //pozicia veze
+    boolean clicked; //kontroluje ci je zapata funkcia pohybu pomocou mysi
     Game game;
-    Point cur;
+    Point cur; //bod nad kt. sa nachadza kurzor
+
     public MazeCanvas(PlayBoard board, int startX, int startY, Game game) {
         this.board=board;
-        pos=new Point();
+        this.pos=new Point();
+        this.cur=new Point();
         this.pos.setLocation(startX,startY);
         this.game=game;
-        clicked=false;
-        cur=new Point();
+        this.clicked=false;
     }
 
     //Vykresli vzdy vsetky stvorceky a nastavuje farby podla premennych
@@ -59,6 +60,7 @@ public class MazeCanvas extends JPanel {
             nextGame();
         }
     }
+
     public boolean click(){
         System.out.println(pos);
         System.out.println(cur);
@@ -70,22 +72,18 @@ public class MazeCanvas extends JPanel {
             this.repaint();
             return false;
         }
-        //prve kliknutie alebo kliknutie mimo povolene stvorce
+        //prve kliknutie alebo kliknutie mimo povolene stvorce zapne/necha zapnutu funkciu pohybu mysou
         else{
             clicked=true;
-            //repaint();
             return true;
         }
     }
 
-    //nastavi poziciu kurzora a ak sa da nan prejst zvyrazni ho
+    //nastavi poziciu kurzora pri pohybe mysou
     public void setCurPos(Point position){
         if (clicked){
             cur.x=position.x;
             cur.y=position.y;
-            if(board.isReachableFromTo(pos.x, pos.y, cur.x,cur.y)){
-               // repaint();
-            }
             repaint();
         }
     }
@@ -103,7 +101,8 @@ public class MazeCanvas extends JPanel {
         pos.y=1;
         this.repaint();
     }
-    public void move(Move mov){
+
+    public void moved(Move mov){
         switch (mov){
             case UP: if (!board.getAllSquares().get(pos.x-1).get(pos.y).isWall()){
                 pos.x=pos.x-1;
