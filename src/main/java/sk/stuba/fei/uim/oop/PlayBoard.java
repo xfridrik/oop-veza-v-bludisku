@@ -1,11 +1,12 @@
 package sk.stuba.fei.uim.oop;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class PlayBoard {
     ArrayList<ArrayList<PlaySquare>> allSquares;
+    PlaySquare[] arr;
+
     public PlayBoard() {
         allSquares=new ArrayList<>();
         squareInit(15);
@@ -73,7 +74,7 @@ public class PlayBoard {
         }
     }
 
-    private void genWay(int size, int line, int col){
+    private void genWay(int line, int col){
         ArrayList<Move> moves= new ArrayList<>();
         moves.add(Move.UP);
         moves.add(Move.DOWN);
@@ -84,26 +85,27 @@ public class PlayBoard {
             if (line > 1 && moves.get(0) == Move.UP && allSquares.get(line - 2).get(col).isWall()) { //UP
                 allSquares.get(line - 1).get(col).setWay();
                 allSquares.get(line - 2).get(col).setWay();
-                genWay(size, line - 2, col);
+                genWay( line - 2, col);
             }
             else if (line < allSquares.size() - 2 && moves.get(0) == Move.DOWN && allSquares.get(line + 2).get(col).isWall()) { //DOWN
                 allSquares.get(line + 1).get(col).setWay();
                 allSquares.get(line + 2).get(col).setWay();
-                genWay(size, line + 2, col);
+                genWay( line + 2, col);
             }
             else if (col > 1 && moves.get(0) == Move.LEFT && allSquares.get(line).get(col - 2).isWall()) { //LEFT
                 allSquares.get(line).get(col - 1).setWay();
                 allSquares.get(line).get(col - 2).setWay();
-                genWay(size, line, col - 2);
+                genWay( line, col - 2);
             }
             else if (col < allSquares.size() - 2 && moves.get(0) == Move.RIGHT && allSquares.get(line).get(col + 2).isWall()) { //RIGHT
                 allSquares.get(line).get(col + 1).setWay();
                 allSquares.get(line).get(col + 2).setWay();
-                genWay(size, line, col + 2);
+                genWay( line, col + 2);
             }
             moves.remove(0);
         }
     }
+
 
     //nastavi stvorceky bez vonkajsej steny
     private void squareInit(int size){
@@ -113,7 +115,11 @@ public class PlayBoard {
                 allSquares.get(i).add(new PlaySquare());
             }
         }
-        genWay(size,0,0);
+
+        allSquares.get(0).get(0).setWay();
+        genWay(0,0);
+
+
         genFin(size);
         addWall();
     }

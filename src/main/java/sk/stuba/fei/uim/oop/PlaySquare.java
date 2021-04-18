@@ -13,10 +13,10 @@ public class PlaySquare {
         return wall;
     }
     public void setFin(){
-        this.fin=true;
+        fin=true;
     }
     public void setWay(){
-        this.wall=false;
+        wall=false;
     }
     public boolean isFin(){
         return fin;
