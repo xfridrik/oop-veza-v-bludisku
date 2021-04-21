@@ -27,7 +27,6 @@ public class PlaySquare {
         this.setWay();
         int line = position.x;
         int col = position.y;
-
         //skusi vsetky pohyby a ak sa da vykonat zavola sa rekurzia pre policko kam sa vykonal pohyb a policko medzi nimi sa nastavi na cestu
         for (int i = 0; i< numOfMoves; i++) {
              if (moves.get(0) == Move.UP && all.get(line - 2).get(col).isWall()) { //UP
@@ -49,19 +48,8 @@ public class PlaySquare {
             moves.remove(0);
         }
     }
-    public boolean isWall(){
-        return wall;
-    }
-    public void setFin(){
-        fin=true;
-    }
-    public void setWay(){
-        wall=false;
-    }
-    public boolean isFin(){
-        return fin;
-    }
-    //Priradi vsetky mozne pohyby o 2 z tohto policka a nahodne ich zoradi
+
+    //Priradi vsetky mozne pohyby (susedov kam moze ist) o 2 z tohto policka a nahodne ich zoradi
     private void moveInit(){
         moves=new ArrayList<>();
         int line=position.x;
@@ -83,5 +71,35 @@ public class PlaySquare {
         Collections.shuffle(moves);
         this.numOfMoves = moves.size();
     }
-
+    //vrati pocet susedov - ciest
+    public int numOfNextWays(){
+        int line=position.x;
+        int col=position.y;
+        int nextWays=0;
+        if (line > 0 && !all.get(line-1).get(col).isWall()) { //UP
+            nextWays++;
+        }
+        if (line < mazeSize - 1 && !all.get(line+1).get(col).isWall()) { //DOWN
+            nextWays++;
+        }
+        if (col > 0 && !all.get(line).get(col-1).isWall()) { //LEFT
+            nextWays++;
+        }
+        if (col < mazeSize - 1 && !all.get(line).get(col+1).isWall()) { //RIGHT
+            nextWays++;
+        }
+        return nextWays;
+    }
+    public boolean isWall(){
+        return wall;
+    }
+    public void setFin(){
+        fin=true;
+    }
+    public void setWay(){
+        wall=false;
+    }
+    public boolean isFin(){
+        return fin;
+    }
 }

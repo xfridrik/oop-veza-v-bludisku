@@ -5,8 +5,8 @@ import java.awt.*;
 
 public class MenuPanel extends JPanel {
     JLabel winLabel;
-    MazeCanvas canv;
-    public MenuPanel(JLabel winLabel, MazeCanvas canv) {
+    Maze canv;
+    public MenuPanel(JLabel winLabel, Maze canv) {
         this.winLabel=winLabel;
         this.canv=canv;
         this.setBackground(Color.DARK_GRAY);

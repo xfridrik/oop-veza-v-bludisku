@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class DownListener implements ActionListener {
-    MazeCanvas can;
-    public DownListener(MazeCanvas can) {
+    Maze can;
+    public DownListener(Maze can) {
         this.can=can;
     }
     @Override

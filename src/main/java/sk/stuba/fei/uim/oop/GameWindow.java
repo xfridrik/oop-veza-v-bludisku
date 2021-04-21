@@ -4,29 +4,23 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameWindow extends JFrame {
-    MazeCanvas canv;
-    int wins;
-    public GameWindow(MazeCanvas canv,JLabel winLabel) throws HeadlessException {
-        this.canv = canv;
-        this.setVisible(true);
-        this.setSize(524,666);
-        wins=0;
-
+    public GameWindow(Maze mazeCanvas, JLabel winLabel) throws HeadlessException {
         var panelMain = new JPanel();
         var mainLayout= new BorderLayout();
         panelMain.setLayout(mainLayout);
 
-        var panelMenu = new MenuPanel(winLabel,canv);
+        var panelMenu = new MenuPanel(winLabel,mazeCanvas);
 
         panelMain.add(panelMenu,BorderLayout.PAGE_START);
-        panelMain.add(canv);
+        panelMain.add(mazeCanvas);
         this.add(panelMain);
 
-        canv.addMouseListener(new MoveMouseListener(canv));
-        canv.addMouseMotionListener(new MoveMouseListener(canv));
-        canv.setFocusable(false);
-        this.addKeyListener(new MoveKeyListener(canv));
+        mazeCanvas.addMouseListener(new MoveMouseListener(mazeCanvas));
+        mazeCanvas.addMouseMotionListener(new MoveMouseListener(mazeCanvas));
+        mazeCanvas.setFocusable(false);
+        this.addKeyListener(new MoveKeyListener(mazeCanvas));
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
+        this.pack();
+        this.setVisible(true);
     }
 }

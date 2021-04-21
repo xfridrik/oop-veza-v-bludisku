@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ResetListener implements ActionListener {
-    MazeCanvas can;
-    public ResetListener(MazeCanvas can) {
+    Maze can;
+    public ResetListener(Maze can) {
         this.can=can;
     }
 

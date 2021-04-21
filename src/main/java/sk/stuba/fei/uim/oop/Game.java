@@ -4,19 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Game {
-    PlayBoard board;
-    GameWindow window;
-    JLabel winLabel;
-    int wins;
+    private final JLabel winLabel;
+    private int wins;
 
     public Game() {
-        board=new PlayBoard();
-        var canv=new MazeCanvas(board,1,1,this);
+        var canv=new Maze(1,1,this);
 
         winLabel = new JLabel("Pocet vyhier 0",SwingConstants.CENTER);
         winLabel.setForeground(Color.CYAN);
 
-        window=new GameWindow(canv,winLabel);
+        GameWindow window = new GameWindow(canv, winLabel);
         window.repaint();
 
     }

@@ -4,8 +4,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class MoveKeyListener implements KeyListener {
-    MazeCanvas canv;
-    public MoveKeyListener(MazeCanvas canv) {
+    Maze canv;
+    public MoveKeyListener(Maze canv) {
         this.canv=canv;
     }
 

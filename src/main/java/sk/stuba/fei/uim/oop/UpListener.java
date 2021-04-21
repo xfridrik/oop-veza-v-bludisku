@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class UpListener implements ActionListener {
-    MazeCanvas can;
-    public UpListener(MazeCanvas can) {
+    Maze can;
+    public UpListener(Maze can) {
         this.can=can;
     }
 
