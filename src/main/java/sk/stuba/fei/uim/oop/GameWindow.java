@@ -11,8 +11,7 @@ public class GameWindow extends JFrame implements KeyListener {
     public GameWindow(Maze mazeCanvas, JLabel winLabel) throws HeadlessException {
         this.mazeCanvas=mazeCanvas;
         var panelMain = new JPanel();
-        var mainLayout= new BorderLayout();
-        panelMain.setLayout(mainLayout);
+        panelMain.setLayout(new BorderLayout());
 
         var panelMenu = new MenuPanel(winLabel,mazeCanvas);
 
