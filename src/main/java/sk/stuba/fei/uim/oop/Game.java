@@ -8,15 +8,15 @@ public class Game {
     private int wins;
 
     public Game() {
-        var canv=new Maze(1,1,this);
+        Maze mazeCanvas=new Maze(1,1,this);
 
         winLabel = new JLabel("Pocet vyhier 0",SwingConstants.CENTER);
         winLabel.setForeground(Color.CYAN);
 
-        GameWindow window = new GameWindow(canv, winLabel);
+        GameWindow window = new GameWindow(mazeCanvas, winLabel);
         window.repaint();
-
     }
+
     public void win(){
         wins++;
         winLabel.setText("Pocet vyhier "+wins);

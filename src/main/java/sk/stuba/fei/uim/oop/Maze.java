@@ -3,13 +3,12 @@ package sk.stuba.fei.uim.oop;
 import javax.swing.*;
 import java.awt.*;
 
-
 public class Maze extends JPanel {
     private final int squareSize;
     private PlayBoard board;
-    private Point pos; //pozicia veze
-    private Game game;
-    private Point cur; //bod nad kt. sa nachadza kurzor
+    private final Point pos; //pozicia veze
+    private final Point cur; //bod nad kt. sa nachadza kurzor
+    private final Game game;
     private boolean clicked; //kontroluje ci je zapata funkcia pohybu pomocou mysi
 
     public Maze(int startX, int startY, Game game) {
@@ -46,29 +45,28 @@ public class Maze extends JPanel {
         }
     }
 
-    private void squareSetColor(Graphics g,PlaySquare square,int sqX, int sqY){
+    private void squareSetColor(Graphics g,PlaySquare square,int line, int col){
         if (square.isWall()) {
             g.setColor(Color.darkGray);
         }
-        else if(sqX==1 && sqY==1){
+        else if(line==1 && col==1){
             g.setColor(Color.green);
         }
-        else if (board.getAllSquares().get(sqY).get(sqX).isFin()){
+        else if (board.getAllSquares().get(col).get(line).isFin()){
             g.setColor(Color.red);
         }
         else {
             g.setColor(Color.white);
         }
-        if(clicked && cur.x==sqY&&cur.y==sqX) {
-            if (board.isReachableFromTo(pos.x, pos.y, sqY, sqX)) {
-                g.setColor(Color.CYAN);
+        if(clicked && cur.x==col && cur.y==line && board.isReachableFromTo(pos.x, pos.y, col, line)) {
+            if(board.getAllSquares().get(col).get(line).isFin()){
+                g.setColor(Color.MAGENTA); //ciel
             }
+            else g.setColor(Color.CYAN); //ostatne reachable policka
         }
     }
 
     public boolean click(){
-        System.out.println(pos);
-        System.out.println(cur);
         //druhe kliknutie nastavi poziciu ak splna podmienky
         if(clicked && !board.getAllSquares().get(cur.x).get(cur.y).isWall() && board.isReachableFromTo(pos.x, pos.y, cur.x,cur.y)){
             pos.x=cur.x;
@@ -103,6 +101,7 @@ public class Maze extends JPanel {
         this.board=new PlayBoard();
         pos.x=1;
         pos.y=1;
+        clicked=false;
         this.repaint();
     }
 
@@ -134,7 +133,6 @@ public class Maze extends JPanel {
 
     private void checkWin(){
         if(board.getAllSquares().get(pos.x).get(pos.y).isFin()){
-            System.out.println("VYHRA");
             game.win();
             nextGame();
         }

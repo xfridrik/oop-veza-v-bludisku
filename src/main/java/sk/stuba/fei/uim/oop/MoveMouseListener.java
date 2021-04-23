@@ -5,29 +5,29 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MoveMouseListener extends MouseAdapter {
-    Maze canv;
-    int squareSize;
-    int xp=1;
-    int yp=1;
-    boolean clicked;
+    private final Maze mazeCanvas;
+    private final int squareSize;
+    private int xp=1;
+    private int yp=1;
+    private boolean clicked;
+
     public MoveMouseListener(Maze canv) {
-        this.canv=canv;
+        this.mazeCanvas =canv;
         this.squareSize=canv.getSquareSize();
     }
 
     //ked sa klikne na vezu nastavi sa clicked a zavola funkcia v canvas
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("click");
         int x=e.getX()/squareSize;
         int y=e.getY()/squareSize;
-        if(y==canv.getPosition().getX() && x==canv.getPosition().getY()){
-            canv.click();
+        if(y== mazeCanvas.getPosition().getX() && x== mazeCanvas.getPosition().getY()){
+            mazeCanvas.click();
             clicked=true;
-            canv.repaint();
+            mazeCanvas.repaint();
         }
         else if(clicked){
-            clicked=canv.click();
+            clicked= mazeCanvas.click();
         }
     }
 
@@ -39,10 +39,9 @@ public class MoveMouseListener extends MouseAdapter {
         if(xp!=xc || yp!=yc){
             xp=xc;
             yp=yc;
-            canv.setCurPos(new Point(yc,xc));
+            mazeCanvas.setCurPos(new Point(yc,xc));
         }
 
     }
 
 }
-
