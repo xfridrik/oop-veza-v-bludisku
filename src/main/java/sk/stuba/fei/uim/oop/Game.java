@@ -25,5 +25,4 @@ public class Game {
         wins=0;
         winLabel.setText("Pocet vyhier "+wins);
     }
-
 }
